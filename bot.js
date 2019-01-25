@@ -38,11 +38,17 @@ function respondTo(text, post) {
     }
 }
 
-function parseCommand(command, id, post) {
-    if (command.length == 0) {
+function parseCommand(text, id, post) {
+    if (text.length == 0) {
         post(id, cool());
     } else {
-        post(id, "Echo: " + command);
+        for (const command of commands.commands) {
+            if (command.commandRegex.test(text)) {
+                post(id, command.processCommand(text));
+                return;
+            }
+        }
+        console.log("For " + id + " unrecognized command issued: " + text);
     }
 }
 
