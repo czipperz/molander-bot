@@ -25,13 +25,24 @@ function respond() {
 }
 
 function respondTo(text, post) {
-    const bots = [{ regex: /^\/molander/, id: process.env.BOT_ID },
-                  { regex: /^\/test/, id: process.env.TEST_BOT_ID }];
+    const bots = [{ name: "/molander", id: process.env.BOT_ID },
+                  { name: "/test", id: process.env.TEST_BOT_ID }];
 
     for (const bot of bots) {
-        if (bot.regex.test(text)) {
-            post(bot.id, cool());
+        if (text.startsWith(bot.name)) {
+            const withoutName = text.substring(bot.name.length);
+            if (withoutName.length == 0 || withoutName.startsWith(' ')) {
+                parseCommand(withoutName.trim(), bot.id, post);
+            }
         }
+    }
+}
+
+function parseCommand(command, id, post) {
+    if (command.length == 0) {
+        post(id, cool());
+    } else {
+        post(id, "Echo: " + command);
     }
 }
 
