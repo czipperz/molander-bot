@@ -32,23 +32,25 @@ function respondTo(text, post) {
         if (text.startsWith(bot.name)) {
             const withoutName = text.substring(bot.name.length);
             if (withoutName.length == 0 || withoutName.startsWith(' ')) {
-                parseCommand(withoutName.trim(), bot.id, post);
+                parseCommand(withoutName.trim(), function (text) {
+                    post(bot.id, text);
+                });
             }
         }
     }
 }
 
-function parseCommand(text, id, post) {
+function parseCommand(text, post) {
     if (text.length == 0) {
-        post(id, cool());
+        post(cool());
     } else {
         for (const command of commands.commands) {
             if (command.commandRegex.test(text)) {
-                post(id, command.processCommand(text));
+                post(command.processCommand(text));
                 return;
             }
         }
-        console.log("For " + id + " unrecognized command issued: " + text);
+        console.log("Unrecognized command issued: " + text);
     }
 }
 
