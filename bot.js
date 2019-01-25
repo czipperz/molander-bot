@@ -4,33 +4,34 @@ const sleep = require('sleep');
 
 const commands = require('./src/commands');
 
-const BOT_ID = process.env.BOT_ID;
-const TEST_BOT_ID = process.env.TEST_BOT_ID;
-
 function respond() {
     const request = JSON.parse(this.req.chunks[0]);
-
-    const botRegex = /^\/molander/;
-    const testRegex = /^\/test/;
 
     sleep.sleep(2);
 
     console.log('Received Event', JSON.stringify(request));
 
     if (request.text) {
-        let id;
-        if (botRegex.test(request.text)) {
-            id = BOT_ID;
-        } else if (testRegex.test(request.text)) {
-            id = TEST_BOT_ID;
-        }
-        postMessage(this.req, this.res, id, cool());
+        respondTo(request.text, function (id, message) {
+            postMessage(this.req, this.res, id, message);
+        });
 
         console.log('Commands:', JSON.stringify(commands));
     } else {
         console.log("Message ignored");
         this.res.writeHead(200);
         this.res.end();
+    }
+}
+
+function respondTo(text, post) {
+    const bots = [{ regex: /^\/molander/, id: process.env.BOT_ID },
+                  { regex: /^\/test/, id: process.env.TEST_BOT_ID }];
+
+    for (const bot of bots) {
+        if (bot.regex.test(text)) {
+            post(bot.id, cool());
+        }
     }
 }
 
