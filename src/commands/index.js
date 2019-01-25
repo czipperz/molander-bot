@@ -1,1 +1,1 @@
-exports.help = require('./help.js');
+exports.commands = [ require('./help.js') ];

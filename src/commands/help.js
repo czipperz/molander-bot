@@ -1,6 +1,6 @@
-const commandRegex = /^(help)\s*(.*)/;
+const commandRegex = /^help/;
 
-function processCommand() {
+function processCommand(command) {
 	return 'I\'ll help out eventually';
 }
 
