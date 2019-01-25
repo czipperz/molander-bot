@@ -84,5 +84,6 @@ function postMessage(request, response, botID, botResponse) {
 
 
 module.exports = {
-    respond
+    respond,
+    respondTo
 };
