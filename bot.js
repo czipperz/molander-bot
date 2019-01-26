@@ -2,7 +2,7 @@ const HTTPS = require('https');
 const cool = require('cool-ascii-faces');
 const sleep = require('sleep');
 
-const commands = require('./commands');
+const commands = require('./src/commands');
 
 const BOT_ID = process.env.BOT_ID;
 const TEST_BOT_ID = process.env.TEST_BOT_ID;
