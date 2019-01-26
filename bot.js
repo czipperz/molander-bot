@@ -1,7 +1,8 @@
-var HTTPS = require('https');
-var cool = require('cool-ascii-faces');
+const HTTPS = require('https');
+const cool = require('cool-ascii-faces');
+const sleep = require('sleep');
 
-var botID = process.env.BOT_ID;
+const botID = process.env.BOT_ID;
 
 function respond() {
     const request = JSON.parse(this.req.chunks[0]);
@@ -31,6 +32,8 @@ function postMessage() {
         "bot_id": botID,
         "text": botResponse
     };
+
+    sleep.msleep(500);
 
     console.log('sending ' + botResponse + ' to ' + botID);
 

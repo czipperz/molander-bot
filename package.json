@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "cool-ascii-faces": "~1.3.x",
-    "director": "~1.2.x"
+    "director": "~1.2.x",
+    "sleep": "~6.0.0"
   },
   "description": "A nodejs groupme app",
   "main": "index.js",
