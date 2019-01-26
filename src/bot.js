@@ -2,24 +2,29 @@ const HTTPS = require('https');
 const cool = require('cool-ascii-faces');
 const sleep = require('sleep');
 
+const commands = require('./commands');
+
 const BOT_ID = process.env.BOT_ID;
 const TEST_BOT_ID = process.env.TEST_BOT_ID;
 
 function respond() {
     const request = JSON.parse(this.req.chunks[0]);
+
     const botRegex = /^\/molander/;
     const testRegex = /^\/test/;
 
+    sleep.sleep(2);
+
+    console.log('Received Event', JSON.stringify(request));
+
     if (request.text) {
         if (botRegex.test(request.text)) {
-            this.res.writeHead(200);
             postMessage(BOT_ID);
-            this.res.end();
         } else if (testRegex.test(request.text)) {
-            this.res.writeHead(200);
             postMessage(TEST_BOT_ID);
-            this.res.end();
         }
+
+        console.log('Commands:', JSON.stringify(commands));
     } else {
         console.log("Message ignored");
         this.res.writeHead(200);
@@ -28,6 +33,8 @@ function respond() {
 }
 
 function postMessage(botID) {
+    this.res.writeHead(200);
+
     const botResponse = cool();
 
     const options = {
@@ -41,15 +48,14 @@ function postMessage(botID) {
         "text": botResponse
     };
 
-    sleep.sleep(2);
-
-    console.log('sending ' + botResponse + ' to ' + botID);
+    console.log('Sending ' + botResponse + ' to ' + botID);
 
     const botReq = HTTPS.request(options, function(res) {
         if (res.statusCode == 202) {
             // neat
+            console.log('POST successful');
         } else {
-            console.log('rejecting bad status code ' + res.statusCode);
+            console.log('Rejecting bad status code ' + res.statusCode);
         }
     });
 
@@ -60,6 +66,8 @@ function postMessage(botID) {
         console.log('timeout posting message ' + JSON.stringify(err));
     });
     botReq.end(JSON.stringify(body));
+    
+    this.res.end();
 }
 
 

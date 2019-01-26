@@ -5,14 +5,14 @@
     "sleep": "~6.0.0"
   },
   "description": "A nodejs groupme app",
-  "main": "index.js",
+  "main": "src/index.js",
   "name": "molander-bot",
   "repository": {
     "type": "git",
     "url": "https://github.com/jwile14/molander-bot"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "version": "0.0.1"
 }
