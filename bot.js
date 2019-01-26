@@ -4,15 +4,15 @@ var cool = require('cool-ascii-faces');
 var botID = process.env.BOT_ID;
 
 function respond() {
-    const request = JSON.parse(this.req.chunks[0]),
-        botRegex = /^\/TK/;
+    const request = JSON.parse(this.req.chunks[0]);
+    const botRegex = /^Hey Farkas,/;
 
     if (request.text && botRegex.test(request.text)) {
         this.res.writeHead(200);
         postMessage();
         this.res.end();
     } else {
-        console.log("don't care");
+        console.log("Message ignored");
         this.res.writeHead(200);
         this.res.end();
     }
