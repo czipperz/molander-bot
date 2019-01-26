@@ -10,7 +10,7 @@ function respond() {
     const botRegex = /^\/molander/;
     const testRegex = /^\/test/;
 
-    if (request.text && botRegex.test(request.text)) {
+    if (request.text) {
         if (botRegex.test(request.text)) {
             this.res.writeHead(200);
             postMessage(BOT_ID);
