@@ -33,7 +33,7 @@ function postMessage() {
         "text": botResponse
     };
 
-    sleep.msleep(500);
+    sleep.sleep(2);
 
     console.log('sending ' + botResponse + ' to ' + botID);
 
