@@ -1,7 +1,7 @@
 const http = require('http');
 const director = require('director');
 const cool = require('cool-ascii-faces');
-const bot = require('./src/bot.js');
+const bot = require('./bot.js');
 
 const router = new director.http.Router({
     '/': {
