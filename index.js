@@ -3,7 +3,7 @@ const director = require('director');
 const cool = require('cool-ascii-faces');
 const bot = require('./bot.js');
 
-const frouter = new director.http.Router({
+const router = new director.http.Router({
     '/': {
         post: bot.respond,
         get: ping
