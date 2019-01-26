@@ -19,9 +19,9 @@ function respond() {
 
     if (request.text) {
         if (botRegex.test(request.text)) {
-            postMessage(BOT_ID);
+            postMessage(BOT_ID, cool());
         } else if (testRegex.test(request.text)) {
-            postMessage(TEST_BOT_ID);
+            postMessage(TEST_BOT_ID, cool());
         }
 
         console.log('Commands:', JSON.stringify(commands));
@@ -32,10 +32,8 @@ function respond() {
     }
 }
 
-function postMessage(botID) {
+function postMessage(botID, botResponse) {
     this.res.writeHead(200);
-
-    const botResponse = cool();
 
     const options = {
         hostname: 'api.groupme.com',
