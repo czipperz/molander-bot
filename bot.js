@@ -18,11 +18,13 @@ function respond() {
     console.log('Received Event', JSON.stringify(request));
 
     if (request.text) {
+        let id;
         if (botRegex.test(request.text)) {
-            postMessage(this.req, this.res, BOT_ID, cool());
+            id = BOT_ID;
         } else if (testRegex.test(request.text)) {
-            postMessage(this.req, this.res, TEST_BOT_ID, cool());
+            id = TEST_BOT_ID;
         }
+        postMessage(this.req, this.res, id, cool());
 
         console.log('Commands:', JSON.stringify(commands));
     } else {
