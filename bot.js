@@ -1,5 +1,4 @@
 const HTTPS = require('https');
-const cool = require('cool-ascii-faces');
 const sleep = require('sleep');
 
 const commands = require('./src/commands');
@@ -34,8 +33,8 @@ function respondTo(text, post) {
         if (text.startsWith(bot.name)) {
             const withoutName = text.substring(bot.name.length);
             if (withoutName.length == 0 || withoutName.startsWith(' ')) {
-                parseCommand(withoutName.trim(), function (text) {
-                    post(bot.id, text);
+                parseCommand(withoutName.trim(), function (message) {
+                    post(bot.id, message);
                 });
             }
         }
@@ -43,16 +42,24 @@ function respondTo(text, post) {
 }
 
 function parseCommand(text, post) {
-    if (text.length == 0) {
-        post(cool());
-    } else {
-        for (const command of commands.commands) {
-            if (command.commandRegex.test(text)) {
-                post(command.processCommand(text));
-                return;
-            }
+    for (const command of commands.commands) {
+        if (command.commandRegex.test(text)) {
+            post(command.processCommand(text));
+            return;
         }
-        console.log("Unrecognized command issued: " + text);
+    }
+    console.log("Unrecognized command issued: " + text);
+}
+
+function makeBody(botID, message) {
+    if (typeof message === 'string') {
+        return {
+            "bot_id": botID,
+            "text": message
+        };
+    } else {
+        message.bot_id = botID;
+        return message;
     }
 }
 
@@ -65,12 +72,9 @@ function postMessage(request, response, botID, botResponse) {
         method: 'POST'
     };
 
-    const body = {
-        "bot_id": botID,
-        "text": botResponse
-    };
+    const body = makeBody(botID, botResponse);
 
-    console.log('Sending ' + botResponse + ' to ' + botID);
+    console.log('Sending ' + JSON.stringify(body, null, 4));
 
     const botReq = HTTPS.request(options, function(res) {
         if (res.statusCode == 202) {

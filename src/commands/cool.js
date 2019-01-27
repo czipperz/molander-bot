@@ -1,7 +1,8 @@
-const commandRegex = /^help/;
+const cool = require('cool-ascii-faces');
+const commandRegex = /.*/;
 
 function processCommand(command) {
-    return { text: 'I\'ll help out eventually' };
+    return cool();
 }
 
 module.exports = {
