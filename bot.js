@@ -12,8 +12,10 @@ function respond() {
     console.log('Received Event', JSON.stringify(request));
 
     if (request.text) {
+        const req = this.req;
+        const res = this.res;
         respondTo(request.text, function (id, message) {
-            postMessage(this.req, this.res, id, message);
+            postMessage(req, res, id, message);
         });
 
         console.log('Commands:', JSON.stringify(commands));
