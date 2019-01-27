@@ -1,5 +1,5 @@
 const cool = require('cool-ascii-faces');
-const commandRegex = /.*/;
+const commandRegex = /^\s*$/;
 
 function processCommand(command) {
     return cool();

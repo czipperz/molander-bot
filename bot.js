@@ -31,9 +31,9 @@ function respondTo(text, post) {
 
     for (const bot of bots) {
         if (text.startsWith(bot.name)) {
-            const withoutName = text.substring(bot.name.length);
-            if (withoutName.length == 0 || withoutName.startsWith(' ')) {
-                parseCommand(withoutName.trim(), function (message) {
+            const withoutName = text.substring(bot.name.length).trim();
+            if (withoutName.length >= 0) {
+                parseCommand(withoutName, function (message) {
                     post(bot.id, message);
                 });
             }
