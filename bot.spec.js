@@ -10,6 +10,7 @@ chai.use(sinonChai);
 const cool = require('./src/commands/cool');
 const help = require('./src/commands/help');
 const infidels = require('./src/commands/deus-vult');
+const gif = require('./src/commands/gif');
 
 function messagePrintable(message) {
     return JSON.stringify(message, null, 4);
@@ -76,6 +77,27 @@ describe('bot test suite', () => {
             });
         });
 
+        context('gif command', () => {
+            beforeEach(() => {
+                expectedMessage = 'https://local:test.com/gif';
+                sandbox.stub(gif, 'processCommand').returns(expectedMessage);
+            });
+
+            it('should respond to the gif command', async () => {
+                await bot.respondTo("/molander gif", function (id, message) {
+                    assert.equal(id, expectedId);
+                    assert.equal(message, expectedMessage);
+                });
+            });
+
+            it('should respond to the gif command with a tag', async () => {
+                await bot.respondTo("/molander gif cat", function (id, message) {
+                    assert.equal(id, expectedId);
+                    assert.equal(message, expectedMessage);
+                });
+            });
+        });
+
         context('an unrecognized command', () => {
             beforeEach(() => {
                 sandbox.stub(console, 'log');
@@ -131,6 +153,27 @@ describe('bot test suite', () => {
 
             it('should respond to the infidels command', async () => {
                 await bot.respondTo("/test infidels!", function (id, message) {
+                    assert.equal(id, expectedId);
+                    assert.equal(message, expectedMessage);
+                });
+            });
+        });
+
+        context('gif command', () => {
+            beforeEach(() => {
+                expectedMessage = 'https://local:test.com/gif';
+                sandbox.stub(gif, 'processCommand').returns(expectedMessage);
+            });
+
+            it('should respond to the gif command', async () => {
+                await bot.respondTo("/test gif", function (id, message) {
+                    assert.equal(id, expectedId);
+                    assert.equal(message, expectedMessage);
+                });
+            });
+
+            it('should respond to the gif command with a tag', async () => {
+                await bot.respondTo("/test gif cat", function (id, message) {
                     assert.equal(id, expectedId);
                     assert.equal(message, expectedMessage);
                 });
