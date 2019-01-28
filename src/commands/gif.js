@@ -5,7 +5,7 @@ const commandRegex = /^gif/;
 const getRandomElement = (array) => array[Math.floor(Math.random() * array.length)];
 
 function processCommand(command) {
-    const tag = command.substring('gif'.length).strip();
+    const tag = command.substring('gif'.length).trim();
     const rating = getRandomElement(['Y', 'G', 'PG', 'PG13', 'R']);
     const api_key = process.env.GIPHY_API_KEY;
 
