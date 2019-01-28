@@ -16,8 +16,6 @@ function respond() {
         respondTo(request.text, function (id, message) {
             postMessage(req, res, id, message);
         });
-
-        console.log('Commands:', JSON.stringify(commands));
     } else {
         console.log("Message ignored");
         this.res.writeHead(200);
