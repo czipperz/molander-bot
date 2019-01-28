@@ -1,4 +1,4 @@
-const xhr = require('xhr');
+const request = require('request');
 
 const commandRegex = /^gif/;
 
@@ -9,13 +9,15 @@ function processCommand(command) {
     const rating = getRandomElement(['Y', 'G', 'PG', 'PG13', 'R']);
     const api_key = process.env.GIPHY_API_KEY;
 
-    return xhr.get(`https://api.giphy.com/v1/gifs/random?api_key=${api_key}&tag=${tag}&rating=${rating}`, (err, resp) => {
+    const opts = { json: true };
+
+    return request(`https://api.giphy.com/v1/gifs/random?api_key=${api_key}&tag=${tag}&rating=${rating}`, opts, (err, res, body) => {
         if (err) {
             console.log('Error when requesting gif', err);
         }
 
-        console.log('Giphy response:', resp.body);
-        return resp.body;
+        console.log('Giphy response:', body);
+        return body;
     });
 }
 
