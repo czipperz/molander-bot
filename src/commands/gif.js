@@ -14,6 +14,7 @@ async function processCommand(command) {
     try {
         const response =
             await axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${api_key}&tag=${tag}&rating=${rating}`);
+        console.log(response.data);
         const gifUrl = response.data.image_original_url;
         console.log('Giphy url:', gifUrl);
         return gifUrl;
