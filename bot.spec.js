@@ -40,8 +40,8 @@ describe('bot test suite', () => {
                 sandbox.stub(cool, 'processCommand').returns(expectedMessage);
             });
 
-            it('should respond to the base command', () => {
-                bot.respondTo("/molander", function (id, message) {
+            it('should respond to the base command', async () => {
+                await bot.respondTo("/molander", function (id, message) {
                     assert.equal(id, expectedId);
                     assert.equal(message, expectedMessage);
                 });
@@ -54,8 +54,8 @@ describe('bot test suite', () => {
                 sandbox.stub(help, 'processCommand').returns(expectedMessage);
             });
 
-            it('should respond to the help command', () => {
-                bot.respondTo("/molander help", function (id, message) {
+            it('should respond to the help command', async () => {
+                await bot.respondTo("/molander help", function (id, message) {
                     assert.equal(id, expectedId);
                     assert.equal(message, expectedMessage);
                 });
@@ -68,8 +68,8 @@ describe('bot test suite', () => {
                 sandbox.stub(infidels, 'processCommand').returns(expectedMessage);
             });
 
-            it('should respond to the infidels command', () => {
-                bot.respondTo("/molander infidels!", function (id, message) {
+            it('should respond to the infidels command', async () => {
+                await bot.respondTo("/molander infidels!", function (id, message) {
                     assert.equal(id, expectedId);
                     assert.equal(message, expectedMessage);
                 });
@@ -81,11 +81,10 @@ describe('bot test suite', () => {
                 sandbox.stub(console, 'log');
             });
 
-            it('should not respond to the command', () => {
-                bot.respondTo("/molander qwerty", function (id, message) {
-                    assert.fail();
+            it('should not respond to the command', async () => {
+                await bot.respondTo("/molander qwerty", function (id, message) {
+                    expect(console.log).to.be.calledWith(`Unrecognized command issued: qwerty`);
                 });
-                expect(console.log).to.be.calledWith(`Unrecognized command issued: qwerty`);
             });
         });
     });
@@ -130,8 +129,8 @@ describe('bot test suite', () => {
                 sandbox.stub(infidels, 'processCommand').returns(expectedMessage);
             });
 
-            it('should respond to the infidels command', () => {
-                bot.respondTo("/test infidels!", function (id, message) {
+            it('should respond to the infidels command', async () => {
+                await bot.respondTo("/test infidels!", function (id, message) {
                     assert.equal(id, expectedId);
                     assert.equal(message, expectedMessage);
                 });
@@ -143,11 +142,10 @@ describe('bot test suite', () => {
                 sandbox.stub(console, 'log');
             });
 
-            it('should not respond to the command', () => {
-                bot.respondTo("/test qwerty", function (id, message) {
-                    assert.fail();
+            it('should not respond to the command', async () => {
+                await bot.respondTo("/test qwerty", function (id, message) {
+                    expect(console.log).to.be.calledWith(`Unrecognized command issued: qwerty`);
                 });
-                expect(console.log).to.be.calledWith(`Unrecognized command issued: qwerty`);
             });
         });
     });

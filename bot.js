@@ -23,7 +23,7 @@ function respond() {
     }
 }
 
-function respondTo(text, post) {
+async function respondTo(text, post) {
     const bots = [{ name: "/molander", id: process.env.BOT_ID },
                   { name: "@molander-bot", id: process.env.BOT_ID },
                   { name: "/test", id: process.env.TEST_BOT_ID }];
@@ -31,18 +31,16 @@ function respondTo(text, post) {
     for (const bot of bots) {
         if (text.startsWith(bot.name)) {
             const withoutName = text.substring(bot.name.length).trim();
-            parseCommand(withoutName, function (message) {
-                post(bot.id, message);
-            });
+            const message = await parseCommand(withoutName);
+            post(bot.id, message);
         }
     }
 }
 
-function parseCommand(text, post) {
+async function parseCommand(text) {
     for (const command of commands.commands) {
         if (command.commandRegex.test(text)) {
-            post(command.processCommand(text));
-            return;
+            return command.processCommand(text);
         }
     }
     console.log("Unrecognized command issued: " + text);
