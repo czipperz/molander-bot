@@ -27,6 +27,7 @@ function respond() {
 
 function respondTo(text, post) {
     const bots = [{ name: "/molander", id: process.env.BOT_ID },
+                  { name: "@molander-bot", id: process.env.BOT_ID },
                   { name: "/test", id: process.env.TEST_BOT_ID }];
 
     for (const bot of bots) {
