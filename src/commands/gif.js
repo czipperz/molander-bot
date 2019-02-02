@@ -5,15 +5,14 @@ const commandRegex = /^gif/;
 const getRandomElement = (array) => array[Math.floor(Math.random() * array.length)];
 
 async function processCommand(command) {
-    const tag = command.substring('gif'.length).trim();
-    const rating = getRandomElement(['Y', 'G', 'PG', 'PG13', 'R']);
+    const message = command.substring('gif'.length).trim();
     const api_key = process.env.GIPHY_API_KEY;
 
     const opts = { json: true };
 
     try {
         const response =
-            await axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${api_key}&tag=${tag}&rating=${rating}`);
+            await axios.get(`https://api.giphy.com/v1/gifs/translate?api_key=${api_key}&s=${message}&rating=${rating}`);
             
         return response.data.data.images.fixed_height.url;
     } catch (e) {
