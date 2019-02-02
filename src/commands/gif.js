@@ -12,7 +12,7 @@ async function processCommand(command) {
 
     try {
         const response =
-            await axios.get(`https://api.giphy.com/v1/gifs/translate?api_key=${api_key}&s=${message}&rating=${rating}`);
+            await axios.get(`https://api.giphy.com/v1/gifs/translate?api_key=${api_key}&s=${message}`);
             
         return response.data.data.images.fixed_height.url;
     } catch (e) {
