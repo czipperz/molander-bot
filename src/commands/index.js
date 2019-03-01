@@ -3,4 +3,5 @@ exports.commands = [
     require('./deus-vult.js'),
     require('./cool.js'),
     require('./gif.js'),
+    require('./quote.js'),
 ];

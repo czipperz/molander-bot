@@ -11,6 +11,7 @@ const cool = require('./src/commands/cool');
 const help = require('./src/commands/help');
 const infidels = require('./src/commands/deus-vult');
 const gif = require('./src/commands/gif');
+const quote = require('./src/commands/quote');
 
 function messagePrintable(message) {
     return JSON.stringify(message, null, 4);
