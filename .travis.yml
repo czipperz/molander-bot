@@ -2,21 +2,21 @@ language: node_js
 node_js:
   - node
 
-install:
-  - npm install
-
-jobs:
-  include:
-    - stage: test
-      script: npm run test
-
-    - stage: deploy
-      script: skip
-      provider: heroku
-      api_key:
-        secure: lL8ey+6UBnu6GeYv8Uq3qSCH3l3MR6+lExBRoWp0PbJ+BN8nQRGBsuOmP3J1n9WBhfJN8Zh/6xYsQlTgoaFUUzWcWkwt4B/ImfSzrELKXHeUS1/un1unAhDybZ15llGNXyRL59mGCLgYlEvCm3UV4wJYYf07TBbR/3V3VotBMTi24Tf71RUT2tRHnNPjTi995GS91NvJ9dc4Ghw6AdGIv5hX0xiTfl0RAaziWo4UnI59CKfulmikIDp/p6/N6bUQjLjYv64B1d8UpmVtUgC1XsZ/gJYRB2ghSAvcJUMN9+oAlBS70ouHJyMwwSF875RNzoympdbAY3Ncr6jRdUlNwpI76e2tAPI71mHgjYdDf5fueloRirUsdqmv3Lvc6xGj7zcYSf9pseSfWlHxkBnR2lAOL1mXfmIF51O/WRqPDuUJDTHFVsHEouuhpKHHru7Z8uKoH9ich9HIoIW+BpdVJyFAZH5xUXJVjCZ6q5dzrZoG21gz3wROH7h4kf+lUzel9k77dwL8/+0usROY42biF2QoO6s3ZxNhSi8jrcd1KcWcV2iEWjLuWiG6SLmiiFE3Zy4EfY8WBagVKcPx2Kkr7EMi0S0jCBf4399xD1XQ1u/XahEUQDysWSr8sg/wg8tnl87e6SYrenp2wxwwCP4ofscNdoTW7faBHwe6iU9NDCI=
-
 stages:
   - test
   - name: deploy
     if: branch = release
+
+jobs:
+  include:
+    - name: "Unit Tests"
+      stage: test
+      install:
+        - npm install
+      script: npm run test
+
+    - name: "Heroku Deployment"
+      stage: deploy
+      provider: heroku
+      api_key:
+        secure: lL8ey+6UBnu6GeYv8Uq3qSCH3l3MR6+lExBRoWp0PbJ+BN8nQRGBsuOmP3J1n9WBhfJN8Zh/6xYsQlTgoaFUUzWcWkwt4B/ImfSzrELKXHeUS1/un1unAhDybZ15llGNXyRL59mGCLgYlEvCm3UV4wJYYf07TBbR/3V3VotBMTi24Tf71RUT2tRHnNPjTi995GS91NvJ9dc4Ghw6AdGIv5hX0xiTfl0RAaziWo4UnI59CKfulmikIDp/p6/N6bUQjLjYv64B1d8UpmVtUgC1XsZ/gJYRB2ghSAvcJUMN9+oAlBS70ouHJyMwwSF875RNzoympdbAY3Ncr6jRdUlNwpI76e2tAPI71mHgjYdDf5fueloRirUsdqmv3Lvc6xGj7zcYSf9pseSfWlHxkBnR2lAOL1mXfmIF51O/WRqPDuUJDTHFVsHEouuhpKHHru7Z8uKoH9ich9HIoIW+BpdVJyFAZH5xUXJVjCZ6q5dzrZoG21gz3wROH7h4kf+lUzel9k77dwL8/+0usROY42biF2QoO6s3ZxNhSi8jrcd1KcWcV2iEWjLuWiG6SLmiiFE3Zy4EfY8WBagVKcPx2Kkr7EMi0S0jCBf4399xD1XQ1u/XahEUQDysWSr8sg/wg8tnl87e6SYrenp2wxwwCP4ofscNdoTW7faBHwe6iU9NDCI=
