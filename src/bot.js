@@ -1,7 +1,7 @@
 const HTTPS = require('https');
 const sleep = require('sleep');
 
-const commands = require('./src/commands');
+const commands = require('./commands');
 
 function respond() {
     const request = JSON.parse(this.req.chunks[0]);

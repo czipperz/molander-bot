@@ -1,4 +1,4 @@
-const bot = require('./bot');
+const bot = require('../src/bot');
 const assert = require('assert');
 const chai = require('chai');
 const sinon = require('sinon');
@@ -7,11 +7,11 @@ const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 
-const cool = require('./src/commands/cool');
-const help = require('./src/commands/help');
-const infidels = require('./src/commands/deus-vult');
-const gif = require('./src/commands/gif');
-const quote = require('./src/commands/quote');
+const cool = require('../src/commands/cool');
+const help = require('../src/commands/help');
+const infidels = require('../src/commands/deus-vult');
+const gif = require('../src/commands/gif');
+const quote = require('../src/commands/quote');
 
 function messagePrintable(message) {
     return JSON.stringify(message, null, 4);
