@@ -1,11 +1,16 @@
 const axios = require('axios');
 
-const commandRegex = /^gif/;
+const commandRegex = /.*/;
 
 const getRandomElement = (array) => array[Math.floor(Math.random() * array.length)];
 
 async function processCommand(command) {
-    const message = command.substring('gif'.length).trim();
+    let message;
+    if (command.startsWith(/^gif\s+/)) {
+        message = command.substring('gif'.length).trim();
+    } else {
+        message = command;
+    }
     const api_key = process.env.GIPHY_API_KEY;
 
     const opts = { json: true };
