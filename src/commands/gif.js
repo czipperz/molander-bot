@@ -6,7 +6,7 @@ const getRandomElement = (array) => array[Math.floor(Math.random() * array.lengt
 
 async function processCommand(command) {
     let message;
-    if (command.startsWith(/^gif\s+/)) {
+    if (command.matches(/^gif\s+/)) {
         message = command.substring('gif'.length).trim();
     } else {
         message = command;
